@@ -105,7 +105,7 @@ def openai_to_anthropic_request(payload):
     result = {
         'model': payload.get('model', 'claude-sonnet-4-20250514'),
         'messages': anthropic_messages,
-        'max_tokens': payload.get('max_tokens') or 8192,
+        'max_tokens': max(payload.get('max_tokens') or 8192, 8192),
     }
 
     if system_parts:
