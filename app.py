@@ -186,6 +186,11 @@ def create_app():
                         except json.JSONDecodeError:
                             continue
 
+                        logger.debug(f'[stream] event={event_type} data_keys={list(event_data.keys()) if isinstance(event_data, dict) else "?"}')
+                        if event_type == 'content_block_start':
+                            block = event_data.get('content_block', {})
+                            logger.info(f'[stream] content_block_start type={block.get("type")} name={block.get("name", "")}')
+
                         chunks = anthropic_to_openai_stream_chunk(
                             event_type, event_data, request_id
                         )
