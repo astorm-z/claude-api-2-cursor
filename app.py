@@ -57,6 +57,7 @@ def create_app():
 
         # 转换请求
         anthropic_payload = openai_to_anthropic_request(payload)
+        logger.debug(f'[chat] anthropic_payload: {json.dumps(anthropic_payload, ensure_ascii=False)}')
 
         # 准备请求头
         headers = _prepare_headers()
