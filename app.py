@@ -55,6 +55,29 @@ def create_app():
         msg_count = len(payload.get('messages', []))
         logger.info(f'[chat] model={model} stream={is_stream} messages={msg_count}')
 
+        # 记录每条消息的摘要
+        for i, msg in enumerate(payload.get('messages', [])):
+            role = msg.get('role', '?')
+            content = msg.get('content')
+            content_type = type(content).__name__
+            has_tc = 'tool_calls' in msg
+            tc_count = len(msg.get('tool_calls', []))
+            tc_id = msg.get('tool_call_id', '')
+            if isinstance(content, list):
+                content_info = f'list[{len(content)}]'
+            elif isinstance(content, str):
+                content_info = f'str[{len(content)}]'
+            elif content is None:
+                content_info = 'None'
+            else:
+                content_info = content_type
+            extra = ''
+            if has_tc:
+                extra += f' tool_calls={tc_count}'
+            if tc_id:
+                extra += f' tool_call_id={tc_id}'
+            logger.info(f'[chat]   msg[{i}] role={role} content={content_info}{extra}')
+
         # 转换请求
         anthropic_payload = openai_to_anthropic_request(payload)
         logger.debug(f'[chat] anthropic_payload: {json.dumps(anthropic_payload, ensure_ascii=False)}')
