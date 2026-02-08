@@ -1,0 +1,31 @@
+# Version control
+.git/
+.gitignore
+
+# Environment (keep .env.example as reference)
+.env
+.env.*
+!.env.example
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Docker self
+Dockerfile
+compose.yml
+.dockerignore
+
+# Project auxiliary
+.zcf/
+README.md
