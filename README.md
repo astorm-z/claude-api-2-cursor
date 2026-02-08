@@ -54,6 +54,36 @@ python start.py
 - **Base URL**: `http://localhost:3029`（或你的服务器地址）
 - **API Key**: 填写 `ACCESS_API_KEY` 的值
 
+## Docker 部署
+
+### 1. 配置环境变量
+
+```bash
+cp .env.example .env
+```
+
+编辑 `.env` 填写必要的配置项（参考上方环境变量表）。
+
+### 2. 启动服务
+
+```bash
+docker compose up -d
+```
+
+### 3. 查看日志
+
+```bash
+docker compose logs -f
+```
+
+### 4. 停止服务
+
+```bash
+docker compose down
+```
+
+> 服务默认监听 `PROXY_PORT`（默认 3029），支持通过 `.env` 自定义端口。容器以非 root 用户运行，内置健康检查。
+
 ## API 路由
 
 | 路由 | 方法 | 说明 |
